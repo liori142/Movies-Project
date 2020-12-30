@@ -1,0 +1,42 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#asd{
+    background: #1d3557;
+}
+
+#allCards div,img{
+    border-radius: 30px;
+    border: none;
+}
+
+#allCards .card-header{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+#allCards .card-body{
+    border-radius: 0px;
+}
+
+
+a:hover{
+    cursor: pointer;
+}
+
+.bigger{
+    font-size: 25px;
+}
+
+.card{
+
+    background-color: black;
+}
+
+
+

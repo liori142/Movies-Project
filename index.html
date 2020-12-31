@@ -18,10 +18,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<body id="asd">
+<body style="background: #bbe1fa;">
 
     <!-- Nav Start -->
-    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #457b9d;">
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #3282b8;">
         <img src="logo.png" width="200px" height="100px" alt="">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,15 +31,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto d-flex justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('top_rated')">Top Rated
+                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('marvel')">Marvel Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('upcoming')">Upcoming
                         Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('upcoming')">Upcoming</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('popular')">Most Popular
-                        Movies</a>
+                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('popular')">PopularMovies</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle px-4 bigger" style="color: #f1f6f9;" href="#" id="navbarDropdown"
@@ -59,16 +58,81 @@
     </nav>
     <!-- Nav End -->
 
-
-    <div class="container">
-        <h1 id="titleId" class="d-flex justify-content-center my-4 text-light">Top 20 Movies</h1>
-        <div class="cards row d-flex justify-content-center" id="allCards">
-        </div>
-        <div class="d-flex justify-content-center">
-
-        </div>
-
+    <!-- Main Section Start-->
+    <div class="container" id="mainId">
+        <h1 id="titleId" class="d-flex justify-content-center my-4"></h1>
+        <div class="cards row d-flex justify-content-center" id="allCards"></div>
     </div>
+
+        <div id="showMoreDiv" class="d-flex justify-content-center"></div>
+    <!-- Main Section End-->
+
+    <!-- Footer Start-->
+    <footer class="bg-light text-center text-lg-start">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Content</h5>
+                    <p>
+                        i have worked with imdb api, and i used Javascript, BootStrap, Html, Css
+                    </p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="">Genres</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#" onclick="run('category',28,this)" class="text-dark">Action Movies</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="run('category',18,this)" class="text-dark">Drama Movies</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="run('category',35,this)" class="text-dark">Comedy Movies</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="run('category',27,this)" class="text-dark">Horror Movies</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-0">Main</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#" onclick="run('marvel')" class="text-dark">Marvel Movies</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="run('upcoming')" class="text-dark">Upcoming Movies</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="run('popular')" class="text-dark">Popular Movies</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            CopyRight Reversed © 2021
+            <a id = 'algoId' class="text-dark" href="https://github.com/liori142">Liors's Project</a>
+        </div>
+    </footer>
+    <!-- Footer End-->
+
+
     <script src="index.js"></script>
 </body>
 

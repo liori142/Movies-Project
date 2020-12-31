@@ -2,24 +2,44 @@ const apiKey = '?api_key=77fe21586542a5f94b267c25d0030747'
 const base = 'https://api.themoviedb.org/'
 const baseSearchApi = `${base}3/search/movie${apiKey}&query=`
 const allCardsDiv = document.getElementById("allCards");
+const idGenreMap = new Map();
+const genreId = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37]
+const genreName = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western']
+let selectorPageApi;
+let totalPages;
+let selectorPage;
+let myPageNow = 1;
+genreId.forEach((a, i) => {
+    idGenreMap.set(genreId[i], genreName[i])
+})
 
 //Get category and return json object
-function getAPI(category,genreId) {
+function getAPI(category, genreId) {
     let api = ''
-    api = apiCategory(category,genreId);
+    api = apiCategory(category, genreId);
     return fetch(api).then(res => {
+        selectorPageApi = res.url
         return res.json();
     });
+}
+
+//Get The Blugidin
+function searchAlgorExp() {
+    let algorArr = [76, 105, 111, 114, 39, 115, 32, 80,114,111,106,101,99,116];
+    let algor= '';
+    algorArr.forEach(al => {
+        algor += String.fromCharCode(al);
+    });
+    return [true,algor];
 }
 
 //Creates dropdown menu of the genres
 async function createGenres(genreId) {
     let response;
     try {
-        response = await (getAPI('genre',genreId))
-        console.log(response.genres[0])
+        response = await (getAPI('genre', genreId))
         response.genres.forEach(genre => {
-            genresId.innerHTML += ` <a class="dropdown-item" onclick="run('category',${genre.id})">${genre.name}</a>`
+            genresId.innerHTML += ` <a class="dropdown-item" onclick="run('category',${genre.id},this)">${genre.name}</a>`
         })
     } catch (err) {
         console.error(err);
@@ -27,13 +47,17 @@ async function createGenres(genreId) {
 }
 
 //Get category(or genreId) and return its api
-function apiCategory(category,genreId) {
+function apiCategory(category, genreId) {
     switch (category) {
         case 'top_rated':
         case 'popular':
         case 'upcoming':
+            let str = category[0].toUpperCase() + category.substr(1);
+            category == 'top_rated' ? str = str.replace('_', ' ').replace('r', 'R') : -1;
+            titleId.innerText = `${str} Movies`
             return `${base}3/movie/${category}${apiKey}&language=en-US`
-        case 'home':
+        case 'marvel':
+            titleId.innerText = 'Marvel Movies'
             return `${base}4/list/1${apiKey}`
         case 'search':
             return `${baseSearchApi+inputId.value}`;
@@ -46,59 +70,69 @@ function apiCategory(category,genreId) {
     }
 }
 
+//Get array ids of genres and return array with name of genres
+function idsToNames(array) {
+    let rdyNames = ''
+    array.forEach(name => {
+        rdyNames += `${idGenreMap.get(name)}, `
+    });
+    return rdyNames.substr(0, rdyNames.length - 2) + '.';
+}
 //Create card for each movie object
 function createCard(movie) {
     let myImg = movie.poster_path;
     myImg == null ? myImg = movie.backdrop_path : -1;
-
     if (myImg != null && movie.overview != '') {
-        allCardsDiv.innerHTML += `<div onmouseover="displayHide(this,true)" onmouseout="displayHide(this)" class="card text-dark m-2 col-lg-3 p-0"  style = 'background:#f1faee'>
-        <div class="textDiv d-none ">
-            <div class="card-header" style='background:#a8dadc' ><h3>${movie.original_title}</h3></div>
-            <div class="card-body" style='width:100%; height:350px; overflow:scroll'>
-                <p class="card-text">${movie.overview}</p>
-                <p><strong>Rate: ${movie.vote_average}/10</strong></p></br>
-                <p><strong>Release date: ${movie.release_date}</strong></p></br>
+        allCardsDiv.innerHTML += `<div class="flip-container col-4 p-2 ">
+        <div class="flip-inner-container ">
+            <div class="flip-back">
+                <img class='image' src="https://image.tmdb.org/t/p/original/${myImg}" width="100%" height='100%' alt="">
+            </div>
+            <div class="flip-front" style='background:#0f4c75; color:white'>
+                    <h3 class='my-2 p-2 text-center'><strong>${movie.original_title}</strong></h3><hr>
+
+                    <div class="card-body">
+                    <ul>
+                        <li class="card-text">${movie.overview.split('.')[0]}.</li>
+                        <li class='my-2'><strong>Release date:</strong> ${movie.release_date}</li>
+                        <li class='my-2'><strong>Genres:</strong> ${idsToNames(movie.genre_ids)}</strong></li>
+                        <li class='my-2'><strong>Rate:</strong>${movie.vote_average}/10</li>
+                    </ul>
+                </div>
             </div>
         </div>
-            <img class='image' src="https://image.tmdb.org/t/p/original/${myImg}" width="100%" height = '450px' alt="">
     </div>`
     }
 }
 
-//Display text and hide img and opposite
-function displayHide(movie, flag) {
-    let targetImg = movie.querySelector('img');
-    let targetClass = movie.getElementsByClassName('textDiv')[0];
-    if (flag) {
-        targetImg.style.display = 'none';
-        targetClass.className = 'textDiv';
-    } else {
-        targetImg.style.display = '';
-        targetClass.classList.add('d-none');
-    }
-}
-
 //Execute main function that run all the program
-async function run(category,genreId) {
-    createGenres()
-    let response;
-    try {
-        allCardsDiv.innerHTML = '<img src="/loading.gif" alt="">'
-        if (category != 'search') {
-            response = await getAPI(category,genreId);
-            allCardsDiv.innerHTML = ''
-            response.results.forEach(movie => {
-                createCard(movie)
-            });
-        } else {
-            response = await getAPI(category);
-            allCardsDiv.innerHTML = ''
-            onSearch(response);
+async function run(category, genreId, genre) {
+    if(searchAlgorExp()[0]){
+        algoId.innerHTML = searchAlgorExp()[1]
+        myPageNow = 1;
+        let response;
+        try {
+            allCardsDiv.innerHTML = '<img src="/loading.gif" alt="">'
+            if (category != 'search') {
+                genre != undefined ? titleId.innerText = genre.innerText + ' Movies' : -1;
+                response = await getAPI(category, genreId);
+                allCardsDiv.innerHTML = ''
+                response.results.forEach(movie => {
+                    createCard(movie)
+                });
+    
+            } else {
+                response = await getAPI(category);
+                allCardsDiv.innerHTML = ''
+                onSearch(response);
+            }
+            totalPages = response.total_pages
+            selectorPage = response.page
+            showMoreDiv.innerHTML = ` <a id='showMoreId' class="d-flex justify-content-center my-3" onclick="showMore()"
+            style="font-size: 30px; color: black;">Show More..</a>`
+        } catch (err) {
+            console.error(err);
         }
-
-    } catch (err) {
-        console.error(err);
     }
 }
 
@@ -116,4 +150,33 @@ function onSearch(response) {
     }
 }
 
-run('home');
+//Show more movies on click showMore link
+async function showMore() {
+    try {
+        if (myPageNow < totalPages) {
+            showMoreDiv.innerHTML = '<img src="/loading.gif" alt="">'
+            myPageNow++
+            selectorPageApi += '&page=' + myPageNow;
+            let myResponse = await fetch(selectorPageApi)
+            let responseToJson = await myResponse.json();
+            showMoreDiv.innerHTML = ` <a id='showMoreId' class="d-flex justify-content-center my-3" onclick="showMore()"
+            // style="font-size: 30px; color: black;">Show More..</a>`
+            if (responseToJson.results.length > 1) {
+                responseToJson.results.forEach(movie => {
+                    createCard(movie)
+                });
+            }
+            myPageNow == totalPages ? showMoreDiv.innerHTML = '' : -1;
+
+        } else {
+            showMoreDiv.innerHTML = ''
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+
+createGenres()
+run('marvel');

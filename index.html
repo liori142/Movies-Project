@@ -7,42 +7,45 @@
     <link rel="stylesheet" href="cinema.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
-<body style="background: #bbe1fa;">
-
+<body id="bodyId">
     <!-- Nav Start -->
-    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #3282b8;">
+
+    <nav class="navbar navbar-expand-lg sticky-top d-flex justify-content-end px-3 pt-1">
+       
+        <select id="langId" class="text-dark"></select>
+    </nav>
+    <nav class="navbar navbar-expand-lg sticky-top p-0">
         <img src="logo.png" width="200px" height="100px" alt="">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span role="button"><i class="fa fa-bars" aria-hidden="true"></i></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto d-flex justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('marvel')">Marvel Movies</a>
+                    <a class="nav-link px-4 bigger catClass" onclick="run('marvel')">Marvel Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('upcoming')">Upcoming
+                    <a class="nav-link px-4 bigger catClass" onclick="run('upcoming')">Upcoming
                         Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-4 bigger" style="color: #f1f6f9;" onclick="run('popular')">PopularMovies</a>
+                    <a class="nav-link px-4 bigger catClass" onclick="run('popular')">PopularMovies</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle px-4 bigger" style="color: #f1f6f9;" href="#" id="navbarDropdown"
-                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle px-4 bigger catClass" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="genresId">
@@ -50,7 +53,7 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" onsubmit="return false">
                 <input id="inputId" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button onclick="run('search')" class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -60,79 +63,55 @@
 
     <!-- Main Section Start-->
     <div class="container" id="mainId">
-        <h1 id="titleId" class="d-flex justify-content-center my-4"></h1>
+        <h1 id="titleId" class="d-flex justify-content-center my-4" style="color: #fbf6f0;"></h1>
         <div class="cards row d-flex justify-content-center" id="allCards"></div>
-    </div>
 
-        <div id="showMoreDiv" class="d-flex justify-content-center"></div>
+        <div id="showMoreDiv" class="d-flex justify-content-center">
+            <a id='showMoreId' class="d-flex justify-content-center my-3" onclick="showMore()"
+                style="font-size: 30px; color: black;">Show More..</a>`
+        </div>
+    </div>
     <!-- Main Section End-->
 
     <!-- Footer Start-->
     <footer class="bg-light text-center text-lg-start">
-        <!-- Grid container -->
-        <div class="container p-4">
-            <!--Grid row-->
+        <div class="p-4">
             <div class="row">
-                <!--Grid column-->
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Content</h5>
                     <p>
-                        i have worked with imdb api, and i used Javascript, BootStrap, Html, Css
+                        I have worked with imdb api.<br>
+                        I have used Javascript, BootStrap, Html, Css
                     </p>
                 </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="">Genres</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <a href="#" onclick="run('category',28,this)" class="text-dark">Action Movies</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="run('category',18,this)" class="text-dark">Drama Movies</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="run('category',35,this)" class="text-dark">Comedy Movies</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="run('category',27,this)" class="text-dark">Horror Movies</a>
-                        </li>
+                    <ul class="list-unstyled">
+                        <li><a href="#" onclick="run('category',28,this)">Action Movies</a></li>
+                        <li><a href="#" onclick="run('category',18,this)">Drama Movies</a></li>
+                        <li><a href="#" onclick="run('category',35,this)">Comedy Movies</a></li>
+                        <li><a href="#" onclick="run('category',27,this)">Horror Movies</a></li>
                     </ul>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="mb-0">Main</h5>
-
                     <ul class="list-unstyled">
-                        <li>
-                            <a href="#" onclick="run('marvel')" class="text-dark">Marvel Movies</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="run('upcoming')" class="text-dark">Upcoming Movies</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="run('popular')" class="text-dark">Popular Movies</a>
-                        </li>
+                        <li><a href="#" onclick="run('marvel')">Marvel Movies</a></li>
+                        <li><a href="#" onclick="run('upcoming')">Upcoming Movies</a></li>
+                        <li><a href="#" onclick="run('popular')">Popular Movies</a></li>
                     </ul>
                 </div>
-                <!--Grid column-->
             </div>
-            <!--Grid row-->
         </div>
-        <!-- Grid container -->
 
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+
+        <div class="text-center p-3 text-light" style="background-color: #1c2b2d">
             CopyRight Reversed © 2021
-            <a id = 'algoId' class="text-dark" href="https://github.com/liori142">Liors's Project</a>
+            <a id='algoId' class="text-light" href="https://github.com/liori142">Liors's Project</a>
         </div>
     </footer>
     <!-- Footer End-->
-
-
     <script src="index.js"></script>
 </body>
 

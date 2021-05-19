@@ -2,22 +2,30 @@ html {
     scroll-behavior: smooth;
 }
 
-* {
+*{
     padding: 0;
     margin: 0;
 }
 
-li {
-    list-style-type: none;
+#bodyId{
+    background: #1f6f8b;
 }
 
-hr{
-    background-color: white;
+/* Nav Start */
+nav{
+    background: #1c2b2d;
+    color: white;
 }
 
-.card-body{
-    overflow: scroll;
+nav i{
+    color:#e6e6ff
 }
+span{
+    font-size: 30px;
+}
+.navbar-toggler {
+    border-color: rgb(255,102,203);
+  } 
 
 a:hover {
     cursor: pointer;
@@ -25,6 +33,31 @@ a:hover {
 
 .bigger {
     font-size: 25px;
+}
+
+.catClass{
+    color: #f1f6f9;
+}
+.catClass:hover{
+ background-color: #fff;
+ border-radius: 20px;
+ color:#1c2b2d;
+}
+
+#genresId a:hover{
+    background: #1c2b2d;
+    color:#fff
+}
+
+/* Nav End */
+
+/* Movie Card Start */
+.card-body{
+    overflow: scroll;
+}
+
+li {
+    list-style-type: none;
 }
 
 .flip-container {
@@ -39,7 +72,6 @@ a:hover {
     position: relative;
     width: 100%;
     height: 100%;
-    /* text-align: center; */
     transform-style: preserve-3d;
     transition: transform 0.8s;
 }
@@ -57,7 +89,7 @@ a:hover {
     height: 100%;
     backface-visibility: hidden;
     border-radius: 30px;
-    box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 5px 5px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* flip from Start Here */
@@ -72,8 +104,44 @@ a:hover {
     transform: rotateY(180deg);
     
 }
+
+.flip-front{
+    overflow: scroll;
+    background:#fff;
+     color:black;
+}
 /* flip start from back here */
 .flip-back > .image{
     border-radius: 30px;
     
 }
+
+.image{
+    width: 100%;
+    height: 100%;
+}
+
+.info-title{
+    background:#1c2b2d;
+    color:#fff;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Movie Card End */
+
+/* Footer Start */
+.list-unstyled li a{
+    color:#1c2b2d
+}
+
+.list-unstyled li a:hover{
+    padding: 0 30px 0 30px;
+    text-decoration-line: none;
+    border-radius: 5px;
+    background: #1c2b2d;
+    color:#fff
+}
+
+/* Footer End */
+
